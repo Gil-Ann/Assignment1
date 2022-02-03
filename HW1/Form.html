@@ -6,7 +6,7 @@
   </header>
 
   <body>
-    <form >
+    <form id="myForm">
       <label for="fname">First name:</label><br>
       <input type="text" id="fname" name="fname" ><br>
       <label for="lname">Last name:</label><br>
@@ -24,12 +24,20 @@
       <input type="radio" id="pic3" name="images" value="pic3">
       <img src="images/yves_guillou_chien.svg" alt="elk" style="width:150px;height:150px;"> <br><br>
 
-      <input type="submit" value="Submit" id="submit" onclick="print()">
-
+      <input type="submit" value="Submit" id="submit" >
+      
       <script>
-        function print() {
-          console.log("Congrats!!! \nYour form was NOT submitted!!!\n" );
-        }
+        document.getElementById("submit").addEventListener("click", function(event){
+          var firstName = document.getElementById("fname").value;
+          var lastName = document.getElementById("lname").value;
+          var email = document.getElementById("email").value;
+          var phoneNum = document.getElementById("phonenum").value;
+          var jsy = {FirstName: firstName, LastName: lastName, Email: email, PhoneNumber: phoneNum}
+          console.log(jsy)
+          
+          event.preventDefault()
+        });
+
       </script>
 
 
