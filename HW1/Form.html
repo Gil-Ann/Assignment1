@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <header>
+    <title>Gil's Form</title>
+    <h1>Gil's Form:</h1><br>
+  </header>
+
+  <body>
+    <form >
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" name="fname" ><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" name="lname"><br>
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email"><br>
+      <label for="phonenum">Phone number:</label><br>
+      <input type="tel" id="phonenum" name="phonenum" pattern="[0-9]{10}"><br><br>
+      
+      <p>Chose your power animal:</p>
+      <input type="radio" id="pic1" name="images" value="pic1">
+      <img src="images/Anonymous_the_elk.svg" alt="elk" style="width:150px;height:150px;"> 
+      <input type="radio" id="pic2" name="images" value="pic2">
+      <img src="images/nicubunu_Orangutan_contour.svg" alt="elk" style="width:150px;height:150px;"> 
+      <input type="radio" id="pic3" name="images" value="pic3">
+      <img src="images/yves_guillou_chien.svg" alt="elk" style="width:150px;height:150px;"> <br><br>
+
+      <input type="submit" value="Submit" id="submit" onclick="print()">
+
+      <script>
+        function print() {
+          console.log("Congrats!!! \nYour form was NOT submitted!!!\n" );
+        }
+      </script>
+
+
+    </form>
+  </body>
+  </html>
