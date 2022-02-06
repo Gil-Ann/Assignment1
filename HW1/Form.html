@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <header>
-    <title>Gil's Form</title>
-    <h1>Gil's Form:</h1><br>
+    <title>Gil's Page</title>
+    <h1>Gil's Page:</h1><br>
   </header>
 
   <body>
@@ -11,32 +11,111 @@
       <input type="text" id="fname" name="fname" ><br>
       <label for="lname">Last name:</label><br>
       <input type="text" id="lname" name="lname"><br>
+
+      <label for="gender">Gender:</label> <br>
+      <select id="gender" name="gender">
+        <option value="none" selected>Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">other</option>
+      </select> <br>
+
       <label for="email">Email:</label><br>
       <input type="email" id="email" name="email"><br>
       <label for="phonenum">Phone number:</label><br>
-      <input type="tel" id="phonenum" name="phonenum" pattern="[0-9]{10}"><br><br>
+      <input type="text" id="phonenum" name="phonenum" ><br><br>
       
       <p>Chose your power animal:</p>
-      <input type="radio" id="pic1" name="images" value="pic1">
-      <img src="images/Anonymous_the_elk.svg" alt="elk" style="width:150px;height:150px;"> 
-      <input type="radio" id="pic2" name="images" value="pic2">
-      <img src="images/nicubunu_Orangutan_contour.svg" alt="elk" style="width:150px;height:150px;"> 
-      <input type="radio" id="pic3" name="images" value="pic3">
-      <img src="images/yves_guillou_chien.svg" alt="elk" style="width:150px;height:150px;"> <br><br>
+      <input type="radio" id="pic1" name="images" value="Elk">
+      <img src="images/Anonymous_the_elk.svg" alt="elk" 
+        style="width:150px;height:150px;"> 
+      
+      <input type="radio" id="pic2" name="images" value="Gorilla">
+      <img src="images/nicubunu_Orangutan_contour.svg" alt="elk" 
+        style="width:150px;height:150px;"> 
+      
+      <input type="radio" id="pic3" name="images" value="snake">
+      <img src="images/yves_guillou_chien.svg" alt="elk" 
+        style="width:150px;height:150px;"> 
+      
+      
+      <br><br>
 
-      <input type="submit" value="Submit" id="submit" >
+      <input type="submit" value="Submit" id="submit" onclick="submitForm()">
       
       <script>
         document.getElementById("submit").addEventListener("click", function(event){
-          var firstName = document.getElementById("fname").value;
-          var lastName = document.getElementById("lname").value;
-          var email = document.getElementById("email").value;
-          var phoneNum = document.getElementById("phonenum").value;
-          var jsy = {FirstName: firstName, LastName: lastName, Email: email, PhoneNumber: phoneNum}
-          console.log(jsy)
-          
           event.preventDefault()
         });
+
+        function submitForm(e){
+          var firstName = document.getElementById("fname").value;
+          var lastName = document.getElementById("lname").value;
+          var gender = document.getElementById("gender").value;
+          var email = document.getElementById("email").value;
+          var phoneNum = document.getElementById("phonenum").value;
+          
+          var avatar;
+          if(document.getElementById('pic1').checked || 
+            document.getElementById('pic2').checked ||
+            document.getElementById('pic3').checked){
+              avatar = document.querySelector('input[name="images"]:checked').value;
+              
+          }
+          else
+            avatar = null
+
+          var isValid = checkValidity(firstName, lastName, gender, email, phoneNum, avatar)
+
+          if(isValid){
+            var output = {FirstName: firstName, LastName: lastName, Gender: gender, Email: email, 
+              PhoneNumber: phoneNum, Avatar: avatar}
+            console.log("Valid Form:\n")
+            console.log(output)
+          }
+          else
+            console.log("Invalid Form.\n")
+
+        }
+
+        function checkValidity(firstName, lastName, gender, email, phoneNum, avatar){
+          var isValid = true
+          if(firstName == null || firstName == ""){
+            isValid = false
+          }
+          if(lastName == null || lastName == "")
+            isValid = false
+          if(gender == null || gender == "none")
+            isValid = false
+          if(email == null || email == "" || !validateEmail(email)){
+            isValid = false
+            document.getElementById('email').value = ""
+          }
+          if(phoneNum == null || phoneNum == undefined || !validatePhoneNum(phoneNum)){
+            isValid = false
+            document.getElementById('phonenum').value = ""
+          }
+          if(avatar == null)
+            isValid = null
+          
+          return isValid
+        }
+
+        function validateEmail (emailAdress){
+          let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+          if (emailAdress.match(regexEmail)) {
+            return true; 
+          } 
+          return false; 
+        }
+
+        function validatePhoneNum (phoneNum){
+          let phoneno = /^\d{10}$/;
+          if(phoneNum.match(phoneno)){
+            return true
+          }
+          return false
+        }
 
       </script>
 
