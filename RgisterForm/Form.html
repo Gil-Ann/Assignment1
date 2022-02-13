@@ -7,15 +7,16 @@
   </header>
 
   <body>
-    <form id="myForm">
+    <div id="myForm">
       <label for="fname">First name:</label><br>
       <input type="text" id="fname" name="fname" ><br>
+
       <label for="lname">Last name:</label><br>
       <input type="text" id="lname" name="lname"><br>
 
       <label for="gender">Gender:</label> <br>
       <select id="gender" name="gender">
-        <option value="none" selected>Gender</option>
+        <option value="" selected>Gender</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="other">other</option>
@@ -23,152 +24,123 @@
 
       <label for="email">Email:</label><br>
       <input type="text" id="email" name="email"><br>
+
       <label for="phonenum">Phone number:</label><br>
       <input type="text" id="phonenum" name="phonenum" ><br><br>
       
       <p>Chose your power animal:</p>
       <label>
         <input type="radio" id="pic1" name="images" value="Elk">
-        <img src="images/Anonymous_the_elk.svg" alt="elk" 
-          style="width:150px;height:150px;"> 
+        <img class="radio-img" src="images/Anonymous_the_elk.svg" alt="elk"> 
       </label>
       <label>
         <input type="radio" id="pic2" name="images" value="Gorilla">
-        <img src="images/nicubunu_Orangutan_contour.svg" alt="elk" 
-          style="width:150px;height:150px;"> 
+        <img class="radio-img" src="images/nicubunu_Orangutan_contour.svg" alt="elk"> 
       </label>
       <label>
-        <input type="radio" id="pic3" name="images" value="snake">
-        <img src="images/yves_guillou_chien.svg" alt="elk" 
-          style="width:150px;height:150px;"> 
+        <input type="radio" id="pic3" name="images" value="Snake">
+        <img class="radio-img" src="images/yves_guillou_chien.svg" alt="elk"> 
       </label>
       
       <br><br>
 
-      <input type="submit" value="Submit" id="submit" onclick="submitForm()">
+      <input type="button" value="Submit" id="submit" onclick="submitForm()">
       
-      <script>
-
-        document.getElementById("submit").addEventListener("click", function(event){
-          event.preventDefault()
-        });
-
-        function submitForm(e){
-          var firstName = document.getElementById("fname").value;
-          var lastName = document.getElementById("lname").value;
-          var gender = document.getElementById("gender").value;
-          var email = document.getElementById("email").value;
-          var phoneNum = document.getElementById("phonenum").value;
-          
-          var avatar;
-          if(document.getElementById('pic1').checked || 
-            document.getElementById('pic2').checked ||
-            document.getElementById('pic3').checked){
-              avatar = document.querySelector('input[name="images"]:checked').value;
-              
-          }
-          else
-            avatar = null
-
-          var isValid = checkValidity(firstName, lastName, gender, email, phoneNum, avatar)
-
-          if(isValid){
-            var output = {FirstName: firstName, LastName: lastName, Gender: gender, Email: email, 
-              PhoneNumber: phoneNum, Avatar: avatar}
-            console.log("Valid Form:\n")
-            console.log(output)
-          }
-          else
-            console.log("Invalid Form. Please try again.\n")
-
-        }
-
-        function checkValidity(firstName, lastName, gender, email, phoneNum, avatar){
-          var isValid = true
-          
-          if(firstName == null || firstName == ""){
-            isValid = false
-            document.getElementById('fname').setCustomValidity("Invalid field.");
-            console.log("Invalid 'First name'.")
-          }
-          else{
-            document.getElementById('fname').setCustomValidity("");
-          }
-          if(lastName == null || lastName == ""){
-            isValid = false
-            document.getElementById('lname').setCustomValidity("Invalid field.");
-            console.log("Invalid 'Last name'.")
-            }
-          else{
-             document.getElementById('lname').setCustomValidity("");
-          }
-
-          
-          if(gender == null || gender == "none"){
-            isValid = false
-            document.getElementById('gender').setCustomValidity("Invalid field.");
-            console.log("Invalid 'Gender'.")
-          }
-          else{
-            document.getElementById('gender').setCustomValidity("");
-          }
-
-          if(email == null || email == "" || !validateEmail(email)){
-            isValid = false
-            document.getElementById('email').value = ""
-            document.getElementById('email').setCustomValidity("Invalid field.");
-            console.log("Invalid 'Email'.")
-          }
-          else{
-            document.getElementById('email').setCustomValidity("");
-          }
-
-          if(phoneNum == null || phoneNum == undefined || !validatePhoneNum(phoneNum)){
-            isValid = false
-            document.getElementById('phonenum').value = ""
-            document.getElementById('phonenum').setCustomValidity("Invalid field.");
-            console.log("Invalid 'Phone number'.")
-          }
-          else{
-            document.getElementById('phonenum').setCustomValidity("");
-          }
-
-          if(avatar == null){
-            isValid = false
-            var imgs = [].slice.call(document.getElementsByName('images'));
-            imgs.forEach(img => {
-              img.setCustomValidity("Invalid field.")
-            });
-            console.log("Invalid 'Avatar'.")
-          }
-          else{
-            var imgs = [].slice.call(document.getElementsByName('images'));
-            imgs.forEach(img => {
-              img.setCustomValidity("")
-            });
-          }
-          return isValid
-        }
-
-        function validateEmail (emailAdress){
-          let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-          if (emailAdress.match(regexEmail)) {
-            return true; 
-          } 
-          return false; 
-        }
-
-        function validatePhoneNum (phoneNum){
-          let phoneno = /^\d{10}$/;
-          if(phoneNum.match(phoneno)){
-            return true
-          }
-          return false
-        }
-
-      </script>
-
-
-    </form>
+    </div>
   </body>
-  </html>
+</html>
+<script>
+
+
+  function submitForm(e){
+    var firstName = document.getElementById("fname").value;
+    var lastName = document.getElementById("lname").value;
+    var gender = document.getElementById("gender").value;
+    var email = document.getElementById("email").value;
+    var phoneNum = document.getElementById("phonenum").value;
+    
+    var avatar;
+    var isImgChecked = false
+    document.getElementsByName("images").forEach(element =>{
+      isImgChecked = isImgChecked || element.checked
+      });
+    if(isImgChecked)
+      avatar = document.querySelector('input[name="images"]:checked').value; 
+    else
+      avatar = null
+
+    var isValid = checkValidity(firstName, lastName, gender, email, phoneNum, avatar)
+
+    if(isValid){
+      var output = {firstName, lastName, gender, email, 
+        phoneNum, avatar}
+      console.log("Valid Form:\n")
+      console.log(output)
+    }
+    else
+      console.log("Invalid Form. Please try again.\n")
+
+  }
+
+  function checkValidity(firstName, lastName, gender, email, phoneNum, avatar){
+    var isValid = true
+    let values = [[firstName, "fname", 'First name'], [lastName, "lname", "Last Name"], 
+                  [gender, "gender", "Gender"], [email, "email", "Email"], 
+                  [phoneNum, "phonenum", "Phone number"], [avatar, "images", "Avatar"]]
+    
+    values.forEach(value => {
+      if(value[1] == "images"){
+        let elements = document.getElementsByName(value[1])
+
+        if(!avatar){
+          isValid = false
+          var imgs = [].slice.call(elements);
+          imgs.forEach(img => {
+            img.setCustomValidity("Invalid field.")
+          });
+          console.log("Invalid " + value[2] + ".")
+        }
+        else{
+          var imgs = [].slice.call(elements)
+          imgs.forEach(img => {
+            img.setCustomValidity("")
+          });
+        }
+      }
+
+      else{
+        let element = document.getElementById(value[1])
+        if((value[1] == "email" && !validateEmail(value[0])) || 
+            (value[1] == "phonenum" && !validatePhoneNum(value[0]))){
+          element.value = ""
+          value[0] = ""
+        }
+        if(!value[0]){
+          isValid = false
+          element.setCustomValidity("Invalid field.")
+          console.log("Invalid " + value[2] +".")
+        }
+        else
+          element.setCustomValidity("")
+      }
+    });
+    return isValid
+  }
+
+  function validateEmail (emailAdress){
+    let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (emailAdress.match(regexEmail)) {
+      return true; 
+    } 
+    return false; 
+  }
+
+  function validatePhoneNum (phoneNum){
+    let phoneno = /^\d{10}$/;
+    if(phoneNum.match(phoneno)){
+      return true
+    }
+    return false
+  }
+
+</script>
