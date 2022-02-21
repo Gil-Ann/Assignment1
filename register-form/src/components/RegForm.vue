@@ -2,17 +2,17 @@
 <template>
   <div>
     <label>First name:</label><br>
-    <div style="display: flex">
     <input :class="{invalid: !valids.firstName & !firstTime}" type="text" v-model="inputs.firstName" >
-    <span class="error" v-show="!valids.firstName & !firstTime">*First name must have atleast one letter.</span>
-</div>
     <br>
-    <!-- <span class="error" v-show="!valids.firstName & !firstTime">*First name must have atleast one letter.</span> -->
-    <!-- <p class="error" v-show="!valids.firstName">*First name must have atleast one letter.</p> -->
+    <span class="error" v-show="!valids.firstName & !firstTime">
+          *First name must have atleast one letter.</span>
+    <br>
 
     <label>Last name:</label><br>
     <input :class="{invalid: !valids.lastName & !firstTime}" type="text" v-model="inputs.lastName">
-    <span class="error" v-show="!valids.lastName & !firstTime">*Last name must have atleast one letter.</span>
+        <br>
+    <span class="error" v-show="!valids.lastName & !firstTime">
+          *Last name must have atleast one letter.</span>
     <br>
 
     <label >Gender:</label> <br>
@@ -22,21 +22,30 @@
       <option value="female">Female</option>
       <option value="other">other</option>
     </select> 
+    <br>
     <span class="error" v-show="!valids.gender & !firstTime">*Must chose a gender.</span>
     <br>  
 
 
     <label>Email:</label><br>
     <input :class="{invalid: !valids.email & !firstTime}" type="text" v-model="inputs.email">
+    <br>
     <span class="error" v-show="!valids.email & !firstTime">*Email must have the form: 'X@X.X'.</span>
     <br>
 
     <label>Phone number:</label><br>
     <input :class="{invalid: !valids.phoneNum & !firstTime}" type="text" v-model="inputs.phoneNum">
+    <br>
     <span class="error" v-show="!valids.phoneNum & !firstTime">*Phone number must have 10 digits.</span>
     <br>
     
     <p>Chose your power animal:</p>
+    <!-- <div v-for="img in images" :key="img">
+      <label :class="{invalidAvatar: !valids.avatar & !firstTime}">
+      <input type="radio" :value="img" v-model="inputs.avatar">
+      <img class="radio-img" :src="'..\\assets\\'+img+'.svg'" :alt="img"> 
+    </label>
+    </div> -->
     <label :class="{invalidAvatar: !valids.avatar & !firstTime}">
       <input type="radio" value="Elk" v-model="inputs.avatar">
       <img class="radio-img" src="..\assets\elk.svg" alt="Elk"> 
@@ -53,8 +62,8 @@
     <span class="errorAvatar" v-show="!valids.avatar & !firstTime">*Must chose an avatar.</span>
     <br>
 
-    <input type="button" value="Submit" @click="submitForm()">
-      
+    <input type="button" class="submit" value="Submit" @click="submitForm()">
+    <br><br>
 
   </div>
 </template>
@@ -72,20 +81,12 @@ export default {
       // avatar: "",
       inputs: {firstName: "", lastName: "", gender: "", 
                   email: "", phoneNum: "", avatar: ""},
-      // valids: {firstName: true, lastName: true,
-      //          gender: true, email: true, 
-      //          phoneNum: true, avatar: true},
+      images: ["elk", "Gorilla", "snake"],
       firstTime: true
     }
   },
   computed:{
-    allValid : function(){
-      let areAllValid = true
-      for(let key in this.valids){
-        areAllValid = areAllValid & this.valids[key]
-      }
-      return areAllValid
-    },
+
     isFirstNameValid: function(){
       return this.inputs.firstName.length > 0
     },
@@ -124,34 +125,20 @@ export default {
   methods:{
     submitForm: function(){
       this.firstTime = false
-      if(this.allValid)
+      if(this.allValid())
         console.log(this.inputs)
     },
-    // updateValids: function(){
-    //   this.valids = {firstName: this.isFirstNameValid, 
-    //           lastName: this.inputs.lastName.length > 0,
-    //           gender: this.inputs.gender.length > 0, email: this.validateEmail(), 
-    //           phonNum: this.validatePhoneNum(), avatar: this.inputs.avatar.length > 0}
-    // },
-    // validateEmail: function(){
-    //   let regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/;
-    //   if (this.inputs.email.match(regexEmail)) {
-    //     return true; 
-    //   } 
-    //   return false; 
-    // },
-    // validatePhoneNum: function(){
-    //   let phoneno = /^\d{10}$/;
-    //   if(this.inputs.phoneNum.match(phoneno)){
-    //     return true
-    //   }
-    //   return false
-    // }
+    allValid : function(){
+      let areAllValid = true
+      for(let key in this.valids){
+        areAllValid = areAllValid & this.valids[key]
+      }
+      return areAllValid
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
   input, select{
@@ -187,12 +174,14 @@ export default {
     width:150px;
     height:150px;
 }
-#submit{
-    background: rgba(145, 79, 120, 0.5);
-    cursor: pointer;
+.submit{
+  font-family: Comic Sans MS, Comic Sans, cursive;
+  color: rgb(19, 5, 66);
+  background: rgba(145, 79, 120, 0.5);
+  cursor: pointer;
 }
 
-#submit:active{
+.submit:active{
     background: rgba(145, 79, 120, 0.9);
 }
 .error{
@@ -208,4 +197,5 @@ export default {
   padding-left: 10px;
   color: rgb(241, 36, 36);
 }
+
 </style>

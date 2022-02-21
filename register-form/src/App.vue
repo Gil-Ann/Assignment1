@@ -24,5 +24,6 @@ export default {
   background-size: cover;
   font-family: Comic Sans MS, Comic Sans, cursive;
   color: rgb(68, 51, 122);
+  
 }
 </style>
