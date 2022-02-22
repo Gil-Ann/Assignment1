@@ -40,24 +40,9 @@
     <br>
     
     <p>Chose your power animal:</p>
-    <!-- tried to use v-for, but couldnt dispaly images.
-    <div v-for="img in images" :key="img">
-      <label :class="{invalidAvatar: !valids.avatar & !firstTime}">
-        <input type="radio" :value="img" v-model="inputs.avatar">
-        <img class="radio-img" :src="'..\\assets\\'+img+'.svg'" :alt="img"> 
-      </label>
-    </div> -->
-    <label :class="{invalidAvatar: !valids.avatar & !firstTime}">
-      <input type="radio" value="Elk" v-model="inputs.avatar">
-      <img class="radio-img" src="..\assets\elk.svg" alt="Elk"> 
-    </label>
-    <label :class="{invalidAvatar: !valids.avatar & !firstTime}">
-      <input  type="radio" value="Gorilla"  v-model="inputs.avatar">
-      <img class="radio-img" src="..\assets\Gorilla.svg" alt="Gorilla"> 
-    </label>
-    <label :class="{invalidAvatar: !valids.avatar & !firstTime}" >
-      <input type="radio" value="Snake"  v-model="inputs.avatar">
-      <img class="radio-img" src="..\assets\snake.svg" alt="Snake"> 
+    <label v-for="img in images" :key="img" :class="{invalidAvatar: !valids.avatar & !firstTime}">
+      <input type="radio" :value="img.val" v-model="inputs.avatar">
+      <img class="radio-img" :src="img.src" :alt="img.val"> 
     </label>
     <br>
     <span class="errorAvatar" v-show="!valids.avatar & !firstTime">*Must chose an avatar.</span>
@@ -78,7 +63,9 @@ export default {
       inputs: {firstName: "", lastName: "", gender: "", 
                   email: "", phoneNum: "", avatar: ""},
 
-      images: ["elk", "Gorilla", "snake"],
+      images: [{src: require("..\\assets\\elk.svg"), val: "Elk"}, 
+              {src: require("..\\assets\\Gorilla.svg"), val: "Gorilla"},
+              {src: require("..\\assets\\snake.svg"), val: "Snake"}],
 
       firstTime: true
     }
