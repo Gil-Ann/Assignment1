@@ -40,7 +40,7 @@
     <br>
     
     <p>Chose your power animal:</p>
-    <label v-for="img in images" :key="img" :class="{invalidAvatar: !valids.avatar & !firstTime}">
+    <label v-for="img in images" :key="img.val" :class="{invalidAvatar: !valids.avatar & !firstTime}">
       <input type="radio" :value="img.val" v-model="inputs.avatar">
       <img class="radio-img" :src="img.src" :alt="img.val"> 
     </label>
