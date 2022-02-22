@@ -40,11 +40,12 @@
     <br>
     
     <p>Chose your power animal:</p>
-    <!-- <div v-for="img in images" :key="img">
+    <!-- tried to use v-for, but couldnt dispaly images.
+    <div v-for="img in images" :key="img">
       <label :class="{invalidAvatar: !valids.avatar & !firstTime}">
-      <input type="radio" :value="img" v-model="inputs.avatar">
-      <img class="radio-img" :src="'..\\assets\\'+img+'.svg'" :alt="img"> 
-    </label>
+        <input type="radio" :value="img" v-model="inputs.avatar">
+        <img class="radio-img" :src="'..\\assets\\'+img+'.svg'" :alt="img"> 
+      </label>
     </div> -->
     <label :class="{invalidAvatar: !valids.avatar & !firstTime}">
       <input type="radio" value="Elk" v-model="inputs.avatar">
@@ -73,15 +74,12 @@ export default {
   name: 'RegForm',
   data(){
     return {
-      // firstName: "",
-      // lastName: "",
-      // gender: "",
-      // email: "",
-      // phonNum: "",
-      // avatar: "",
+
       inputs: {firstName: "", lastName: "", gender: "", 
                   email: "", phoneNum: "", avatar: ""},
+
       images: ["elk", "Gorilla", "snake"],
+
       firstTime: true
     }
   },
@@ -173,29 +171,29 @@ export default {
   .radio-img{
     width:150px;
     height:150px;
-}
-.submit{
-  font-family: Comic Sans MS, Comic Sans, cursive;
-  color: rgb(19, 5, 66);
-  background: rgba(145, 79, 120, 0.5);
-  cursor: pointer;
-}
+  }
 
-.submit:active{
-    background: rgba(145, 79, 120, 0.9);
-}
-.error{
-  font-size: 13px;
-  padding-left: 10px;
-  /* position: absolute; */
-  
-  color: rgb(241, 36, 36);
-}
+  .submit{
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    color: rgb(19, 5, 66);
+    background: rgba(145, 79, 120, 0.5);
+    cursor: pointer;
+  }
 
-.errorAvatar{
-  font-size: 13px;
-  padding-left: 10px;
-  color: rgb(241, 36, 36);
-}
+  .submit:active{
+      background: rgba(145, 79, 120, 0.9);
+  }
+
+  .error{
+    font-size: 13px;
+    padding-left: 10px;    
+    color: rgb(241, 36, 36);
+  }
+
+  .errorAvatar{
+    font-size: 13px;
+    padding-left: 10px;
+    color: rgb(241, 36, 36);
+  }
 
 </style>
