@@ -1,19 +1,14 @@
 <template>
   <div id="app">
-    <title>Gil's Page</title>
-    <h1>Gil's Page:</h1><br>
-    <RegForm/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import RegForm from './components/RegForm.vue'
 
 export default {
   name: 'App',
-  components: {
-    RegForm
-  }
+
 }
 </script>
 

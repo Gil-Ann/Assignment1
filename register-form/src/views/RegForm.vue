@@ -1,6 +1,8 @@
 
 <template>
   <div>
+    <h1>Registration</h1>
+    
     <label>First name:</label><br>
     <input :class="{invalid: !valids.firstName & !firstTime}" type="text" v-model="inputs.firstName" >
     <br>
@@ -63,9 +65,9 @@ export default {
       inputs: {firstName: "", lastName: "", gender: "", 
                   email: "", phoneNum: "", avatar: ""},
 
-      images: [{src: require("..\\assets\\elk.svg"), val: "Elk"}, 
+      images: [{src: require("..\\assets\\Elk.svg"), val: "Elk"}, 
               {src: require("..\\assets\\Gorilla.svg"), val: "Gorilla"},
-              {src: require("..\\assets\\snake.svg"), val: "Snake"}],
+              {src: require("..\\assets\\Snake.svg"), val: "Snake"}],
 
       firstTime: true
     }
@@ -110,8 +112,15 @@ export default {
   methods:{
     submitForm: function(){
       this.firstTime = false
-      if(this.allValid())
+      if(this.allValid()){
         console.log(this.inputs)
+        localStorage.gender = this.inputs.gender
+        localStorage.email = this.inputs.email
+        localStorage.phoneNum = this.inputs.phoneNum
+        this.$router.push(
+          `/quiz/${this.inputs.firstName}/${this.inputs.lastName}/${this.inputs.avatar}`
+          )
+        }
     },
     allValid : function(){
       let areAllValid = true
